@@ -15,7 +15,7 @@ class BannerAdView(context: Context, messenger: BinaryMessenger, id: Int, params
 
     init {
         val adView = AdView(context)
-        adView.adUnitId = "ca-app-pub-9529770421530115/4803487653"
+        adView.adUnitId = "ca-app-pub-9529770421530115/5712907938"
         adView.setAdSize(AdSize.BANNER)
         container.addView(adView)
         adView.loadAd(AdRequest.Builder().build())
