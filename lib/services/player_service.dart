@@ -38,13 +38,18 @@ class PlayerService {
       {Duration startAt = Duration.zero}) async {
     _currentLesson = lesson;
     ProgressService.instance.setLastPlayed(lesson.id);
-    try {
-      await _loadSource(lesson);
-      if (startAt > Duration.zero) await player.seek(startAt);
-      await player.play();
-      _tick.value++;
-      _startAutoSave();
-    } catch (_) {}
+    for (int attempt = 0; attempt < 3; attempt++) {
+      try {
+        await _loadSource(lesson);
+        if (startAt > Duration.zero) await player.seek(startAt);
+        await player.play();
+        _tick.value++;
+        _startAutoSave();
+        return;
+      } catch (_) {
+        if (attempt < 2) await Future.delayed(const Duration(milliseconds: 800));
+      }
+    }
   }
 
   /// Plays or pauses the current lesson. If the source is not loaded yet
@@ -66,6 +71,11 @@ class PlayerService {
   }
 
   Future<void> _loadSource(Lesson lesson) async {
+    if (_sourceLoaded) {
+      try {
+        await player.stop();
+      } catch (_) {}
+    }
     await player.setAudioSource(
       AudioSource.uri(
         Uri.parse('asset:///${lesson.audioAssetPath}'),

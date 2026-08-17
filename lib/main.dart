@@ -12,13 +12,18 @@ import 'theme/neumorphic.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  try {
-    await JustAudioBackground.init(
-      androidNotificationChannelId: 'com.nakudin.albaniythree.channel.audio',
-      androidNotificationChannelName: 'Audio playback',
-      androidNotificationOngoing: true,
-    );
-  } catch (_) {}
+  for (int i = 0; i < 3; i++) {
+    try {
+      await JustAudioBackground.init(
+        androidNotificationChannelId: 'com.nakudin.albaniythree.channel.audio',
+        androidNotificationChannelName: 'Audio playback',
+        androidNotificationOngoing: true,
+      );
+      break;
+    } catch (_) {
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
+  }
 
   try {
     DurationService.instance.init();
