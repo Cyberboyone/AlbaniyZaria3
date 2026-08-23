@@ -11,4 +11,16 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets('Tapping the scholar header opens About Scholar',
+      (tester) async {
+    await tester.pumpWidget(const IslamicAudioApp());
+
+    await tester.tap(find.byTooltip('About the Scholar'));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+
+    expect(find.text('Introduction'), findsOneWidget);
+    expect(find.text('Early Life and Education'), findsOneWidget);
+  });
 }

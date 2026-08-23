@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'about_scholar_screen.dart';
 import '../data/sample_lessons.dart';
 import '../models/lesson.dart';
 import '../services/duration_service.dart';
@@ -88,19 +89,31 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  ClipOval(
-                    child: Image.asset(
-                      'assets/images/scholar_albaniy.png',
-                      width: 48,
-                      height: 48,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const NeumorphicCircleButton(
-                          icon: Icons.person_outline,
-                          size: 48,
-                          iconSize: 22,
-                        );
-                      },
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (_) => const AboutScholarScreen()),
+                      );
+                    },
+                    child: Tooltip(
+                      message: 'About the Scholar',
+                      triggerMode: TooltipTriggerMode.longPress,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/scholar_albaniy.png',
+                          width: 48,
+                          height: 48,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const NeumorphicCircleButton(
+                              icon: Icons.person_outline,
+                              size: 48,
+                              iconSize: 22,
+                            );
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ],
