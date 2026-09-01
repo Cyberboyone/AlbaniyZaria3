@@ -148,12 +148,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          NeumorphicCircleButton(
-                            icon: Icons.more_horiz,
-                            size: 44,
-                            iconSize: 22,
-                            onTap: () {},
-                          ),
+                          const SizedBox(width: 44),
                         ],
                       ),
 
